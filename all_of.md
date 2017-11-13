@@ -1,4 +1,4 @@
-##Function signatures
+## Function signatures
 
 ***************
 
@@ -14,13 +14,15 @@ bool none_of(InputIt first, InputIt last, UnaryPredicate p); (3)
 
 All of them are non-modifying sequence operations. 
 (1) `all_of` returns `true` if `[first, last)`  is empty or if `p(*i)` is `true` for every iterator i in range `[first, last)`, and `false` otherwise.
+
 (2) `any_of` return `false` if `[first, last)` is empty of if `p(*i)` is `false` for every iterator i in range `[first, last)`, and `true` otherwise.
+
 (3) `none_of` returns `true` if `[first, last)`  is empty or if `p(*i)` is `false` for every iterator i in range `[first, last)`, and `true` otherwise.
 
 **[notes]** `all_of` is not the opposite of `none_of`. If the range `[first, last)` is empty, both of them return `true`.
 
 
-###**Example Code**
+### **Example Code**
 
 #### Source code from `clang/lib/AST/VTableBuilder.cpp`
 
@@ -47,19 +49,19 @@ static void removeRedundantPaths(std::list<FullPathTy> &FullPaths) {
 template <class UnaryPredicate>
 void remove_if(UnaryPredicate p);
 ```
-It removes all elements for which predicate `p` returns `true`.
+ It removes all elements for which predicate `p` returns `true`.
 
 * Unary predicate here is a lambda function, in the form of
 ```c++
 [&](const FullPathTy &specification) { statements; }
 ```
-[&] captures all automatic variables used in the body of lambda by reference.
+ [&] captures all automatic variables used in the body of lambda by reference.
 
 * `remove_if` function iterate over every element in the list. For each element, it will compare with other elements in the list.
 ```c++
 if (&SpecificPath == &OtherPath)
 ```
-check whether `SpecificPath` and `OtherPath` refer to the same element.
+ check whether `SpecificPath` and `OtherPath` refer to the same element.
 
 * `all_of` returns `true` if every `BaseSubojbect` element in `SpecificPath` is also in `OtherPath`, which also means `SpecificPath` is a subset of `OtherPath`.
 
@@ -68,7 +70,6 @@ check whether `SpecificPath` and `OtherPath` refer to the same element.
 
 #### Source Code from `IncludeOS/src/net/dhcp/dhcpd.cpp`
 
-<span style="color:grey">
 ```c++
 const auto cid = get_client_id(msg);
 if (cid.empty() or std::all_of(cid.begin(), cid.end(), [] (int i) { return i == 0;  })) {
@@ -76,6 +77,5 @@ debug("Invalid client id\n");
   return;
 }
 ```
-</span>
 
 If `cid` is empty or `0.0.0.0`, it's invalid.
